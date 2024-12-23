@@ -53,4 +53,4 @@ All containers will use same mapping, I've choosen `data` as root mount, as it d
 
 ### Result
 
-[[images/unraid-docker-tab.png]]
+![image](images/unraid-docker-tab.png)

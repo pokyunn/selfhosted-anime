@@ -43,18 +43,18 @@ You can follow TRaSH in most part, like qulities, import custom formats, just th
   > Underscore is only to make it the first in custom formats tab. <br> And add/remove formats as you like, this is the most personal config. 
 - Remove all "Quality Profiles" and create like this.
 
-[[images/sonarr-profiles1.png]]
+![image](images/sonarr-profiles1.png)
 
-[[images/sonarr-profiles2.png]]
+![image](images/sonarr-profiles2.png)
 
-[[images/sonarr-profiles3.png]]
+![image](images/sonarr-profiles3.png)
 
-[[images/sonarr-profiles4.png]]
+![image](images/sonarr-profiles4.png)
 
 ## Now repeat it with Radarr and done!
 
 - If you want you can customize Quality groups and Formats the way you like best, just dont forget to associate them.
 
-[[images/sonarr-add-series.png]]
+![image](images/sonarr-add-series.png)
 
-[[images/sonarr-search-interactive.png]]
+![image](images/sonarr-search-interactive.png)

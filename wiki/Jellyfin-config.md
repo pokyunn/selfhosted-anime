@@ -15,13 +15,13 @@ Once you've restarted Jellyfin connect the plugin to Shoko
 
 - Configure the `Metadata Settings` checking all `Shoko | Let Shoko decide` and save.
 
-[[images/jellyfin-shokofin-metadata.png]]
+![image](images/jellyfin-shokofin-metadata.png)
 
 Now create media libraries for movies and series
 
-[[images/jellyfin-add-movies.png]]
+![image](images/jellyfin-add-movies.png)
 
-[[images/jellyfin-add-series.png]]
+![image](images/jellyfin-add-series.png)
 
 ## Libraries metadata config
 
@@ -51,7 +51,7 @@ After this, in the same menu as above:
 
 If you have this annoing problem with MKVs, while remuxing audio goes out off sync and playback stutter:
 
-[[images/jellyfin-remux.png]]
+![image](images/jellyfin-remux.png)
 
 Download [Jellyfin Media Player
 ](https://github.com/jellyfin/jellyfin-media-player) and point it to Your server.

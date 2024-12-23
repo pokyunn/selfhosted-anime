@@ -11,9 +11,9 @@ Once the container is up and running, proceed with the creation of an account an
 - Go to `(gear icon) > Dashboard > Plugins` remove `TheTVDB`, in `Catalog` add `Anime` and `AniList` (it's reduntant but some images in AniList are better), restart emby serever (through dashboard menu) 
     - If needed increase delay to fetch `AniDB` in `Anime` plugin
 
-[[images/emby-add-movies.png]]
+![image](images/emby-add-movies.png)
 
-[[images/emby-add-series.png]]
+![image](images/emby-add-series.png)
 
 - `Movies`
   - Library Settings
@@ -34,14 +34,14 @@ Once the container is up and running, proceed with the creation of an account an
 
 As we don`t have a shokofin like for emby, we sometimes need to manualy link series, thats why Renamer add anidb-id into series folders, this makes this task easier
 
-[[images/emby-manual-identify1.png]]
+![image](images/emby-manual-identify1.png)
 
-[[images/emby-manual-identify2.png]]
+![image](images/emby-manual-identify2.png)
 
-[[images/emby-manual-identify3.png]]
+![image](images/emby-manual-identify3.png)
 
-[[images/emby-manual-identify4.png]]
+![image](images/emby-manual-identify4.png)
 
-[[images/emby-manual-identify5.png]]
+![image](images/emby-manual-identify5.png)
 
 - For movies, tmdb is working with renamer folder name pattern `{Movie Title} ({Release Year})`

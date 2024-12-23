@@ -8,7 +8,7 @@ Once the container is running, open container logs and grab the initial user/pas
 
 Your will have to apply the following configurations in the `Options`.
 
-[[images/qbittorrent-config.png]]
+![image](images/qbittorrent-config.png)
 
 - ☑️ **Pre-allocate disk space for all files**
 - `Saving management` section
@@ -34,9 +34,9 @@ The script basically grabs two variables `"%F" "%L"` in input, which for qBittor
 
 You'll then need to create the two categories listed in the script:
 
-[[images/qbittorrent-categories.png]]
+![image](images/qbittorrent-categories.png)
 
-[[images/qbittorrent-new-category.png]]
+![image](images/qbittorrent-new-category.png)
 
 ## IMPORTANT! When downloading manually, be sure to set the category!
 

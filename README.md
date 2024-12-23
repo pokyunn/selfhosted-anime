@@ -41,4 +41,4 @@ To dive in, read the [wiki](https://github.com/pokyunn/selfhosted-anime/wiki).
 
 ### Result
 
-[[wiki/images/unraid-docker-tab.png]]
+![teste](wiki/images/unraid-docker-tab.png)
