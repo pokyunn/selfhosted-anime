@@ -38,3 +38,7 @@ I have tested with two media servers:
 - This guide will make **HEAVY** use of hardlinks like explained in [TRaSH Guides](https://trash-guides.info/), you should really give it a read **beforehand**.
 
 To dive in, read the [wiki](https://github.com/pokyunn/selfhosted-anime/wiki).
+
+### Result
+
+[[wiki/images/unraid-docker-tab.png]]
