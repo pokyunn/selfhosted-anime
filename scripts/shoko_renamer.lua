@@ -9,7 +9,7 @@ local group = ""
 
 -- Check if anidb and release group keys exist before trying to access them (they may be nil)
 if file.anidb and file.anidb.releasegroup then
-  group = "[" .. (file.anidb.releasegroup.shortname or file.anidb.releasegroup.name) .. "]"
+  group = (file.anidb.releasegroup.shortname or file.anidb.releasegroup.name)
 end
 
 local animename = anime:getname(animelanguage) or anime.preferredname
@@ -25,7 +25,7 @@ if anime.type ~= AnimeType.Movie or not engepname:find("^Complete Movie") then
   end
   -- Padding is determined from the number of episodes of the same type in the anime (#tostring() gives the number of digits required, e.g. 10 eps -> 2 digits)
   -- Padding is at least 2 digits
-  local epnumpadding = math.max(#tostring(anime.episodecounts[episode.type]), 2)
+  local epnumpadding = math.max(#tostring(anime.episodecounts[episode.type]), 3)
   episodenumber = episode_numbers(epnumpadding) .. fileversion
 
   -- If this file is associated with a single episode and the episode doesn't have a generic name, then add the episode name
@@ -41,37 +41,59 @@ if file.media.video.bitdepth and file.media.video.bitdepth ~= 8 then
   bitdepth = file.media.video.bitdepth .. "bit"
 end
 
+local faudiocodec = file.media.audio[1].codec or ""
+local faudiochannel = file.media.audio[1].channels or ""
+
 local crchash = ""
 -- CRC can be null if disabled in Shoko settings, so need to check it
 if file.hashes.crc then
-  crchash = "[" .. file.hashes.crc .. "]"
+  crchash = file.hashes.crc
 end
 
-local fileinfo = "[" .. table.concat({ res, bitdepth, codec }, "]["):cleanspaces(spacechar) .. "]"
+local truncatedanimename = animename
+  :truncate(maxnamelen)
+--  :gsub( "(: )", '_-_') -- U+FF1A
+  :gsub('\'', '')
 
-local namelist = {
-  animename:truncate(maxnamelen),
-  "-",
-  episodenumber,
-  "-",
-  episodename:truncate(maxnamelen),
-  fileinfo,
-}
-
-animename = animename:truncate(maxnamelen)
 if anime.type ~= AnimeType.Movie then
   destination = "series"
-  -- animename = animename:gsub("(.*):.*","%1")
-  animename = animename .. " [anidb-" .. anime.id .. "]"
+  subfolder = string.format(
+    "%s [anidb-%s]",
+    truncatedanimename,
+    anime.id
+  ):gsub('[%s]', ' ')
+
+  filename = string.format(
+    "%s - S1E%s - %s [%s %s] [%s %s] [%s %s] [%s]",
+    truncatedanimename,
+    episodenumber,
+    episodename:truncate(maxnamelen),
+    file.anidb.source,
+    res,
+    codec,
+    bitdepth,
+    faudiocodec,
+    faudiochannel,
+    group
+  ):cleanspaces(spacechar)
 else
   destination = "movies"
-  namelist = {
-    animename,
-    "(" .. anime.airdate.year .. ")",
-    fileinfo,
-  }
-  animename = animename .. " (" .. anime.airdate.year .. ")"
-end
+  subfolder = string.format(
+    "%s (%s) [anidb-%s]",
+    truncatedanimename,
+    anime.airdate.year,
+    anime.id
+  ):gsub('[%s]', ' ')
 
-filename = table.concat(namelist, " "):cleanspaces(spacechar) .. "-" .. group
-subfolder = { animename }
+  filename = string.format(
+    "%s [%s %s] [%s %s] [%s %s] [%s]",
+    truncatedanimename,
+    file.anidb.source,
+    res,
+    codec,
+    bitdepth,
+    faudiocodec,
+    faudiochannel,
+    group
+  ):cleanspaces(spacechar)
+end
