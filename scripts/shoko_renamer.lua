@@ -52,7 +52,7 @@ end
 
 local truncatedanimename = animename
   :truncate(maxnamelen)
---  :gsub( "(: )", '_-_') -- U+FF1A
+  :gsub( "Gekijouban", '')
   :gsub('\'', '')
 
 if anime.type ~= AnimeType.Movie then
@@ -63,9 +63,17 @@ if anime.type ~= AnimeType.Movie then
     anime.id
   ):gsub('[%s]', ' ')
 
+  local season = 1
+
+  if(episodenumber:find('^S')) then
+    season = 0
+    episodenumber = episodenumber:sub(-3)
+  end
+
   filename = string.format(
-    "%s - S1E%s - %s [%s %s] [%s %s] [%s %s] [%s]",
+    "%s - S%sE%s - %s [%s %s] [%s %s] [%s %s] [%s]",
     truncatedanimename,
+    season,
     episodenumber,
     episodename:truncate(maxnamelen),
     file.anidb.source,
@@ -96,4 +104,29 @@ else
     faudiochannel,
     group
   ):cleanspaces(spacechar)
+
+  if(episodenumber:find('^S')) then
+    episodenumber = episodenumber:sub(-3)
+    subfolder = string.format(
+      "%s - Specials (%s) [anidb-%s]",
+      truncatedanimename,
+      anime.airdate.year,
+      anime.id
+    ):gsub('[%s]', ' ')
+
+    filename = string.format(
+      "%s - S%sE%s - %s [%s %s] [%s %s] [%s %s] [%s]",
+      truncatedanimename,
+      0,
+      episodenumber,
+      episodename:truncate(maxnamelen),
+      file.anidb.source,
+      res,
+      codec,
+      bitdepth,
+      faudiocodec,
+      faudiochannel,
+      group
+    ):cleanspaces(spacechar)
+  end
 end
