@@ -5,7 +5,7 @@ local maxnamelen = 60
 local animelanguage = Language.Romaji
 local episodelanguage = Language.English
 local spacechar = " "
-local group = ""
+local group = "unkown"
 
 -- Check if anidb and release group keys exist before trying to access them (they may be nil)
 if file.anidb and file.anidb.releasegroup then
@@ -61,7 +61,7 @@ if anime.type ~= AnimeType.Movie then
     "%s [anidb-%s]",
     truncatedanimename,
     anime.id
-  ):gsub('[%s]', ' ')
+  ):cleanspaces(spacechar)
 
   local season = 1
 
@@ -76,7 +76,7 @@ if anime.type ~= AnimeType.Movie then
     season,
     episodenumber,
     episodename:truncate(maxnamelen),
-    file.anidb.source,
+    (file.anidb and file.anidb.source or ""),
     res,
     codec,
     bitdepth,
@@ -85,18 +85,32 @@ if anime.type ~= AnimeType.Movie then
     group
   ):cleanspaces(spacechar)
 else
+  local title = ""
+  local epnmap = { 
+    ["001"] = "I", 
+    ["002"] = "II",
+    ["003"] = "III",
+    ["004"] = "IV",
+    ["005"] = "V",
+    ["006"] = "VI",
+  }
+  if (episodenumber:len() > 1 and episodename:len() > 1) then
+    title = " " .. (epnmap[episodenumber] or "?") .. ". " .. episodename:truncate(maxnamelen)
+  end
   destination = "movies"
   subfolder = string.format(
-    "%s (%s) [anidb-%s]",
+    "%s %s (%s) [anidb-%s]",
     truncatedanimename,
-    anime.airdate.year,
+    title,
+    episode.airdate.year,
     anime.id
-  ):gsub('[%s]', ' ')
+  ):cleanspaces(spacechar)
 
   filename = string.format(
-    "%s [%s %s] [%s %s] [%s %s] [%s]",
+    "%s %s [%s %s] [%s %s] [%s %s] [%s]",
     truncatedanimename,
-    file.anidb.source,
+    title,
+    (file.anidb and file.anidb.source or ""),
     res,
     codec,
     bitdepth,
