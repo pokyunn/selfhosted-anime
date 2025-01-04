@@ -25,7 +25,7 @@ if anime.type ~= AnimeType.Movie or not engepname:find("^Complete Movie") then
   end
   -- Padding is determined from the number of episodes of the same type in the anime (#tostring() gives the number of digits required, e.g. 10 eps -> 2 digits)
   -- Padding is at least 2 digits
-  local epnumpadding = math.max(#tostring(anime.episodecounts[episode.type]), 3)
+  local epnumpadding = math.max(#tostring(anime.episodecounts[episode.type]), 2)
   episodenumber = episode_numbers(epnumpadding) .. fileversion
 
   -- If this file is associated with a single episode and the episode doesn't have a generic name, then add the episode name
@@ -67,11 +67,12 @@ if anime.type ~= AnimeType.Movie then
 
   if(episodenumber:find('^S')) then
     season = 0
-    episodenumber = episodenumber:sub(-3)
+    episodenumber = episodenumber:gsub('S', '')
   end
 
   filename = string.format(
-    "%s - S%sE%s - %s [%s %s] [%s %s] [%s %s] [%s]",
+    "[%s] %s - S%sE%s - %s [%s %s] [%s %s] [%s %s] (%s)",
+    group,
     truncatedanimename,
     season,
     episodenumber,
@@ -82,7 +83,7 @@ if anime.type ~= AnimeType.Movie then
     bitdepth,
     faudiocodec,
     faudiochannel,
-    group
+    crchash
   ):cleanspaces(spacechar)
 else
   local title = ""
@@ -107,7 +108,8 @@ else
   ):cleanspaces(spacechar)
 
   filename = string.format(
-    "%s %s [%s %s] [%s %s] [%s %s] [%s]",
+    "[%s] %s %s [%s %s] [%s %s] [%s %s] (%s)",
+    group,
     truncatedanimename,
     title,
     (file.anidb and file.anidb.source or ""),
@@ -116,11 +118,11 @@ else
     bitdepth,
     faudiocodec,
     faudiochannel,
-    group
+    crchash
   ):cleanspaces(spacechar)
 
   if(episodenumber:find('^S')) then
-    episodenumber = episodenumber:sub(-3)
+    episodenumber = episodenumber:gsub('S', '')
     subfolder = string.format(
       "%s - Specials (%s) [anidb-%s]",
       truncatedanimename,
@@ -129,7 +131,8 @@ else
     ):gsub('[%s]', ' ')
 
     filename = string.format(
-      "%s - S%sE%s - %s [%s %s] [%s %s] [%s %s] [%s]",
+      "[%s] %s - S%sE%s - %s [%s %s] [%s %s] [%s %s] (%s)",
+      group,
       truncatedanimename,
       0,
       episodenumber,
@@ -140,7 +143,7 @@ else
       bitdepth,
       faudiocodec,
       faudiochannel,
-      group
+      crchash
     ):cleanspaces(spacechar)
   end
 end
